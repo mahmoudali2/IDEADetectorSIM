@@ -62,6 +62,11 @@
 #include "SVXtracker.hh"
 #include <SVXtrackerBuilder.hh>
 
+// SIWRP includes
+#include "SIWRPMaker.hh"
+#include "SIWRPtracker.hh"
+#include <SIWRPBuilder.hh>
+
 // PSHW includes
 #include "PSHWMaker.hh"
 #include "PSHWtracker.hh"
@@ -252,6 +257,8 @@ void GMCG4DetectorConstruction::DefineVolumes() {
 
   ConstructVertexTracker();
 
+  ConstructSiWrapper();
+
   ConstructPreShower();
 
   ConstructPhotnConveters();
@@ -358,6 +365,26 @@ void GMCG4DetectorConstruction::ConstructVertexTracker() {
 
     svx::SVXtrackerBuilder::instantiateSensitiveDetectors("SVXTrackerHitsCollection");
     svx::SVXtrackerBuilder::constructTracker(fTheWorld->GetLogicalVolume());
+  }
+
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void GMCG4DetectorConstruction::ConstructSiWrapper() {
+
+  if (cRd->getBool("hasSIWRP",false)) {
+
+    RootIO::GetInstance()->CreateMCStepBranches(SensitiveDetectorName::SIWRPTrackerRO(),"SIWRPHitsStepCh");
+
+    siwrp::SIWRPMaker siwrptm( *cRd );
+    GeomService::Instance()->addDetector( siwrptm.getSIWRPtrackerPtr() );
+
+    siwrp::SIWRPBuilder::instantiateSensitiveDetectors("SIWRPTrackerHitsCollection");
+    VolumeInfo siwrpvolinf = siwrp::SIWRPBuilder::constructTracker( fTheWorld->GetLogicalVolume() );
+
+   // GeomService::Instance()->addDetector( siwrptm.getSIWRPradiatorPtr() );
+   // siwrp::SIWRPBuilder::constructRadiator( siwrpvolinf.logical );
+
   }
 
 }

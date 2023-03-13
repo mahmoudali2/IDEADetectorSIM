@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set STANDALONE_INSTALL_DIR="your_complete_installation_path", e.g.:
-export STANDALONE_INSTALL_DIR="your_installation_path"
+export STANDALONE_INSTALL_DIR="/afs/cern.ch/work/m/maali/ideaSIM"
 
 # -----------------------------------------------
 echo "installing in $STANDALONE_INSTALL_DIR"

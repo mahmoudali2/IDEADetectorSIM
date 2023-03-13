@@ -22,46 +22,33 @@ bool   pshw.debugLayer       = false;
 
 // Barrel PSHW parameters
 
-int    pshw.Brl.nLayers                    = 3;
-vector<double> pshw.Brl.LayersInRad        = { 2100.0, 2120.0, 2445.0};
-vector<int> pshw.Brl.nPhiSectors           = {80, 80, 80};
-vector<int> pshw.Brl.nLaddersPerSector     = {48, 48, 48};
-vector<double> pshw.Brl.LaddersHalfLength  = {50, 50, 50};  // Per Layer (The ladder are supposed to be equal for one layer)
-vector<double> pshw.Brl.LaddersThickness   = {0.45, 0.45, 50}; // Per Layer
-vector<int> pshw.Brl.ROTypes               = {1, 1, 1}; //1: Pixel; 2: Strip // Per Layer
-vector<double> pshw.Brl.ROfirstSideDim     = {0.07, 0.07, 0.07}; // Per Layer
-vector<double> pshw.Brl.ROfirstSideInsul   = {0.0005, 0.0005, 0.0005}; // Per Layer
-vector<double> pshw.Brl.ROSecondSideDim    = {0.07, 0.07, 0.07}; // Per Layer
-vector<double> pshw.Brl.ROSecondSideInsul  = {0.0005, 0.0005, 0.0005}; // Per Layer
-vector<double> pshw.Brl.ROangle            = {0.0, 0.0, 0.0}; // Per Layer
+int    pshw.Brl.nLayers                    = 1;
+vector<double> pshw.Brl.LayersInRad        = { 2445.0 };
+vector<int> pshw.Brl.nPhiSectors           = { 80 };
+vector<int> pshw.Brl.nLaddersPerSector     = { 48 };
+vector<double> pshw.Brl.LaddersHalfLength  = { 50 };  // Per Layer (The ladder are supposed to be equal for one layer)
+vector<double> pshw.Brl.LaddersThickness   = { 50 }; // Per Layer
+vector<int> pshw.Brl.ROTypes               = { 1 }; //1: Pixel; 2: Strip // Per Layer
+vector<double> pshw.Brl.ROfirstSideDim     = { 0.07 }; // Per Layer
+vector<double> pshw.Brl.ROfirstSideInsul   = { 0.0005 }; // Per Layer
+vector<double> pshw.Brl.ROSecondSideDim    = { 0.07 }; // Per Layer
+vector<double> pshw.Brl.ROSecondSideInsul  = { 0.0005 }; // Per Layer
+vector<double> pshw.Brl.ROangle            = { 0.0 }; // Per Layer
 
 
 
 
 // First Barrel Layer Ladder description
-int    pshw.Brl.l1.ld.nShells =      2;
-vector<string> pshw.Brl.l1.ld.ShellsMaterial = { "G4_Si", "G4_Si" };
-vector<double> pshw.Brl.l1.ld.ShellsThickness = { 0.10, 0.85 };
+int    pshw.Brl.l1.ld.nShells =      1;
+vector<string> pshw.Brl.l1.ld.ShellsMaterial = { "G4_Si" };
+vector<double> pshw.Brl.l1.ld.ShellsThickness = { 50 };
 int    pshw.Brl.l1.ro.nShells =      1;
 vector<int> pshw.Brl.l1.ro.ShellIds = { 0 };  //id of the ladder shells
 
-// Second Barrel Layer Ladder description
-int    pshw.Brl.l2.ld.nShells =      2;
-vector<string> pshw.Brl.l2.ld.ShellsMaterial = { "G4_Si", "G4_Si" };
-vector<double> pshw.Brl.l2.ld.ShellsThickness = { 0.10, 0.85 };
-int    pshw.Brl.l2.ro.nShells =      1;
-vector<int> pshw.Brl.l2.ro.ShellIds = { 0 };  //id of the ladder shells
-
-// Third Barrel Layer Ladder description
-int    pshw.Brl.l3.ld.nShells =      2;
-vector<string> pshw.Brl.l3.ld.ShellsMaterial = { "G4_Si", "G4_Si" };
-vector<double> pshw.Brl.l3.ld.ShellsThickness = { 0.10, 0.85 };
-int    pshw.Brl.l3.ro.nShells =      1;
-vector<int> pshw.Brl.l3.ro.ShellIds = { 0 };  //id of the ladder shells
 
 
 
-// Barrel PSHW Magnet
+// Barrel PSHW Magnet (Radiator)
 int    pshw.Brl.nRadLayers                 = 1;
 // First Barrel Radiator shell description
 double pshw.Brl.rad.l1.InRad   = 2140.0;

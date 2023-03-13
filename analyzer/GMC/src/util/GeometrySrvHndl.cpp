@@ -3,6 +3,7 @@
  *
  *  Created on: Apr 10, 2017
  *      Author: tassiell
+ *  Modified by Mahmoud Ali
  */
 
 #include <util/GeometrySrvHndl.h>
@@ -19,6 +20,9 @@
 #include "SVXMaker.hh"
 #include "SVXtracker.hh"
 #include "ROGeometryHandle.hh"
+//SIWRP
+#include "SIWRPMaker.hh"
+#include "SIWRPtracker.hh"
 //PSHW
 #include "PSHWMaker.hh"
 #include "PSHWtracker.hh"
@@ -60,6 +64,7 @@ GeometrySrvHndl *GeometrySrvHndl::Instance(std::string geomfile) {
 GeometrySrvHndl::GeometrySrvHndl() :
     fch(NULL)
    ,fsvx(NULL)
+   ,fsiwrp(NULL)
    ,fpshw(NULL)
 {
   // TODO Auto-generated constructor stub
@@ -93,6 +98,14 @@ void GeometrySrvHndl::makeDetectors(){
       //if (fsvx==NULL) {
         GeomHandle<svx::SVXtracker> svxtrkhndl;
         fsvx = svxtrkhndl->getROGeometryHandle();
+      //}
+    }
+     if (fsiwrp==NULL && fGSrvc->getConfig().getBool("hasSIWRP",false)){
+      siwrp::SIWRPMaker siwrptm( fGSrvc->getConfig() );
+      fGSrvc->addDetector( siwrptm.getSIWRPtrackerPtr() );
+      //if (fsiwrp==NULL) {
+        GeomHandle<siwrp::SIWRPtracker> siwrptrkhndl;
+        fsiwrp = siwrptrkhndl->getROGeometryHandle();
       //}
     }
     if (fpshw==NULL && fGSrvc->getConfig().getBool("hasPSHW",false)){
@@ -129,6 +142,12 @@ const svx::SVXtracker *GeometrySrvHndl::GetSVXtracker() {
 //  return fCdchtracker.get();
 }
 
+const siwrp::SIWRPtracker *GeometrySrvHndl::GetSIWRPtracker() {
+  GeomHandle<siwrp::SIWRPtracker> siwrptrkhndl;
+  return &(*siwrptrkhndl);
+//  return fCdchtracker.get();
+}
+
 const pshw::PSHWtracker *GeometrySrvHndl::GetPSHWtracker() {
   GeomHandle<pshw::PSHWtracker> pshwtrkhndl;
   return &(*pshwtrkhndl);
@@ -140,3 +159,4 @@ const phcv::PHCVtcounter *GeometrySrvHndl::GetPHCVtcounter() {
   return &(*phcvtckhndl);
 //  return fCdchtracker.get();
 }
+

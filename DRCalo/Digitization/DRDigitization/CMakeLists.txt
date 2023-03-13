@@ -33,7 +33,7 @@ ExternalProject_Add(DdAndCalibration
 )
 
 ExternalProject_Add(SimSiPM
-    GIT_REPOSITORY git@github.com:EdoPro98/SimSiPM.git
+    GIT_REPOSITORY https://github.com/EdoPro98/SimSiPM.git
     GIT_TAG main
     PREFIX SimSiPM
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../SimSiPM

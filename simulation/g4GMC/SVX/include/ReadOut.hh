@@ -10,6 +10,9 @@
 #include <ReadOutId.hh>
 #include "CLHEP/Vector/ThreeVector.h"
 
+namespace siwrp {
+class SIWRPMaker;
+}
 namespace pshw {
 class PSHWMaker;
 }
@@ -26,6 +29,7 @@ class ReadOut {
   friend class SVXMaker;
   friend class Ladder;
 
+  friend class siwrp::SIWRPMaker;
   friend class pshw::PSHWMaker;
   friend class muspc::MUSPCMaker;
 

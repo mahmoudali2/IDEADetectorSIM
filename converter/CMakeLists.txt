@@ -13,6 +13,7 @@ set(BASE_FLD
 
 set(DET_FLD
 	SVX
+	SIWRP
 	PSHW
 	CDCH
 	TDCH

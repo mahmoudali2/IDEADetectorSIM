@@ -22,6 +22,10 @@
 
 // SVX includes
 
+namespace siwrp {
+class SIWRPMaker;
+}
+
 namespace pshw {
 class PSHWMaker;
 }
@@ -39,6 +43,7 @@ class Ladder{
   friend class SVXMaker;
 //  friend class SVXtrackerBuilder;
 
+  friend class siwrp::SIWRPMaker;
   friend class pshw::PSHWMaker;
   friend class muspc::MUSPCMaker;
 

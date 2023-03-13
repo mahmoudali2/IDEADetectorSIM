@@ -78,7 +78,7 @@ VolumeInfo PSHWBuilder::constructTracker( G4LogicalVolume* mother/*, double zOff
     pshwInfo.logical = new G4LogicalVolume(pshwInfo.solid , matMother, pshwName,0,0,0);
     pshwInfo.logical->SetVisAttributes(visAtt);
 
-    G4VisAttributes* visAttLay = new G4VisAttributes(true, G4Colour::Cyan() );
+    G4VisAttributes* visAttLay = new G4VisAttributes(true, G4Colour::Red() );
     visAttLay->SetForceSolid(true);
     visAttLay->SetForceAuxEdgeVisible (false);
     visAttLay->SetVisibility(true);

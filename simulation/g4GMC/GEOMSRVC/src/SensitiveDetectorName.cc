@@ -9,6 +9,6 @@
 
 //namespace cdch {
 
-const char* SensitiveDetectorName::name[10] = { "DCHtrackerSD", "DCHSWiresSD",  "DCHFWiresSD", "DCHWallsSD", "SVXtrackerSD", "PSHWtrackerSD", "PHCVtcounterSD", "PHCVradiatorSD", "DRFPICaloSD", "MUSPCtrackerSD" };
+const char* SensitiveDetectorName::name[11] = { "DCHtrackerSD", "DCHSWiresSD",  "DCHFWiresSD", "DCHWallsSD", "SVXtrackerSD", "SIWRPtrackerSD","PSHWtrackerSD", "PHCVtcounterSD", "PHCVradiatorSD", "DRFPICaloSD", "MUSPCtrackerSD" };
 
 //}

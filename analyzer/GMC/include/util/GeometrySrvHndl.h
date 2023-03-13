@@ -3,6 +3,7 @@
  *
  *  Created on: Apr 10, 2017
  *      Author: tassiell
+ *  Modified by Mahmoud Ali
  */
 
 #ifndef GEOMETRYSRVHNDL_H
@@ -17,6 +18,9 @@ class CellGeometryHandle;
 namespace svx {
 class SVXtracker;
 class ROGeometryHandle;
+}
+namespace siwrp {
+class SIWRPtracker;
 }
 namespace pshw {
 class PSHWtracker;
@@ -38,6 +42,8 @@ public:
 //  void GetCDCHtracker();
   const svx::SVXtracker *GetSVXtracker();
   svx::ROGeometryHandle *GetROChanHandle() {return fsvx;}
+  const siwrp::SIWRPtracker *GetSIWRPtracker();
+  svx::ROGeometryHandle *GetSIWRPROChanHandle() {return fsiwrp;}
   const pshw::PSHWtracker *GetPSHWtracker();
   svx::ROGeometryHandle *GetPSHWROChanHandle() {return fpshw;}
   const phcv::PHCVtcounter *GetPHCVtcounter();
@@ -52,6 +58,7 @@ private:
 
   cdch::CellGeometryHandle *fch;
   svx::ROGeometryHandle *fsvx;
+  svx::ROGeometryHandle *fsiwrp;
   svx::ROGeometryHandle *fpshw;
 };
 

@@ -18,6 +18,9 @@
 
 #include "manageException.hh"
 
+namespace siwrp {
+class SIWRPMaker;
+}
 namespace pshw {
 class PSHWMaker;
 }
@@ -33,6 +36,7 @@ class Layer{
   friend class SVXtracker;
   friend class SVXMaker;
 
+  friend class siwrp::SIWRPMaker;
   friend class pshw::PSHWMaker;
   friend class muspc::MUSPCMaker;
 
