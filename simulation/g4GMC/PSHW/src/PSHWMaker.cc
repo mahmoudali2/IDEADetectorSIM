@@ -3,7 +3,7 @@
 // Original author G. Tassielli
 //
 
-#include <PSHWRadiator.hh>
+
 #include "PSHWMaker.hh"
 #include "ROGeometryHandle.hh"
 #include "PSHWtracker.hh"
@@ -74,9 +74,9 @@ PSHWMaker::PSHWMaker( crd::SimpleConfig const& config):
 
         loadForwardTracker(config);
 
-        loadBarrelRadiator(config);
+       // loadBarrelRadiator(config);
 
-        loadForwardRadiator(config);
+       // loadForwardRadiator(config);
 
         if (_nFwdLayers>0) {
           _halfLength_fwd=(_zPos_fwd-_halfLength_fwd)*0.5;
@@ -105,7 +105,7 @@ PSHWMaker::PSHWMaker( crd::SimpleConfig const& config):
         }
 
         cout<<"Tot Numb of Channels "<<totNumRO<<endl;
-        cout<<"nRadiator Layers "<<_nRadiatLayers<<endl;
+       // cout<<"nRadiator Layers "<<_nRadiatLayers<<endl;
 
 //        _r0-=1*CLHEP::mm;
 //        _rOut+=1*CLHEP::mm;
@@ -114,7 +114,7 @@ PSHWMaker::PSHWMaker( crd::SimpleConfig const& config):
 
         // Do the real work.
         Build( );
-        BuildRadiator();
+        //BuildRadiator();
 }
 
 PSHWMaker::~PSHWMaker (){}
@@ -556,156 +556,6 @@ void PSHWMaker::Build(){
 
   }
 
-}
-
-void PSHWMaker::loadBarrelRadiator( crd::SimpleConfig const& config ){
-
-  char tmpVarName[50];
-
-  _nRadiatLayers   = config.getInt("pshw.Brl.nRadLayers",0);
-  for (int il=0; il<_nRadiatLayers; ++il) {
-    //Radiator Layers Parameters
-    sprintf(tmpVarName,"pshw.Brl.rad.l%d.InRad",il+1);
-    const std::string inRadVarName(tmpVarName);
-    _RadiatInRasius.push_back(config.getDouble(inRadVarName));
-
-    if (_RadiatInRasius[il]<_r0) { _r0=_RadiatInRasius[il]; }
-
-    sprintf(tmpVarName,"pshw.Brl.rad.l%d.halfLength",il+1);
-    const std::string halflVarName(tmpVarName);
-    _RadiatHalfLengths.push_back(config.getDouble(halflVarName));
-
-    if (_RadiatHalfLengths[il]>_halfLength) { _halfLength=_RadiatHalfLengths[il]; }
-
-    sprintf(tmpVarName,"pshw.Brl.rad.l%d.nShells",il+1);
-    const std::string nShlVarName(tmpVarName);
-    _RadiatNmShells.push_back(config.getInt(nShlVarName));
-
-    sprintf(tmpVarName,"pshw.Brl.rad.l%d.ShellsMaterial",il+1);
-    const std::string AbShlMatVarName(tmpVarName);
-    std::vector< std::string > tmpabMat;
-    config.getVectorString(AbShlMatVarName,tmpabMat,_RadiatNmShells[il]);
-    _RadiatShellsMaterial.push_back( tmpabMat );
-
-    sprintf(tmpVarName,"pshw.Brl.rad.l%d.ShellsThickness",il+1);
-    const std::string AbShlThickVarName(tmpVarName);
-    std::vector<double> tmpabThick;
-    config.getVectorDouble(AbShlThickVarName,tmpabThick,_RadiatNmShells[il]);
-    _RadiatShellsThick.push_back( tmpabThick );
-
-    double tmpThick=0.0;
-    for (int iShl=0; iShl<_RadiatNmShells[il]; ++iShl) {
-      tmpThick += _RadiatShellsThick[il][iShl];
-    }
-    _RadiatersThickness.push_back(tmpThick);
-
-    if ((_RadiatInRasius[il]+_RadiatersThickness[il])>_rOut) { _rOut=(_RadiatInRasius[il]+_RadiatersThickness[il]) ; }
-
-  }
-
-}
-
-void PSHWMaker::loadForwardRadiator( crd::SimpleConfig const& config ) {
-
-  char tmpVarName[50];
-
-  _nRadiatLayers_fwd = config.getInt("pshw.Fwd.nRadLayers",0);
-  for (int il=0; il<_nRadiatLayers_fwd; ++il) {
-    //Radiator Layers Parameters
-    sprintf(tmpVarName,"pshw.Fwd.rad.l%d.InRad",il+1);
-    const std::string inRadVarName(tmpVarName);
-    _RadiatInRasius_fwd.push_back(config.getDouble(inRadVarName));
-
-    if (_RadiatInRasius_fwd[il]<_r0_fwd) { _r0_fwd=_RadiatInRasius_fwd[il]; }
-
-    sprintf(tmpVarName,"pshw.Fwd.rad.l%d.OutRad",il+1);
-    const std::string outRadVarName(tmpVarName);
-    _RadiatOutRasius_fwd.push_back(config.getDouble(outRadVarName));
-
-    if (_RadiatOutRasius_fwd[il]>_rOut_fwd) { _rOut_fwd=_RadiatOutRasius_fwd[il]; }
-
-    sprintf(tmpVarName,"pshw.Fwd.rad.l%d.zPos",il+1);
-    const std::string zPosVarName(tmpVarName);
-    _RadiatZpos_fwd.push_back(config.getDouble(zPosVarName));
-
-    sprintf(tmpVarName,"pshw.Fwd.rad.l%d.nShells",il+1);
-    const std::string nShlVarName(tmpVarName);
-    _RadiatNmShells_fwd.push_back(config.getInt(nShlVarName));
-
-    sprintf(tmpVarName,"pshw.Fwd.rad.l%d.ShellsMaterial",il+1);
-    const std::string AbShlMatVarName(tmpVarName);
-    std::vector< std::string > tmpabMat;
-    config.getVectorString(AbShlMatVarName,tmpabMat,_RadiatNmShells_fwd[il]);
-    _RadiatShellsMaterial_fwd.push_back( tmpabMat );
-
-    sprintf(tmpVarName,"pshw.Fwd.rad.l%d.ShellsThickness",il+1);
-    const std::string AbShlThickVarName(tmpVarName);
-    std::vector<double> tmpabThick;
-    config.getVectorDouble(AbShlThickVarName,tmpabThick,_RadiatNmShells_fwd[il]);
-    _RadiatShellsThick_fwd.push_back( tmpabThick );
-
-    double tmpThick=0.0;
-    for (int iShl=0; iShl<_RadiatNmShells_fwd[il]; ++iShl) {
-      tmpThick += _RadiatShellsThick_fwd[il][iShl];
-    }
-    _RadiatersThickness_fwd.push_back(tmpThick);
-
-    //_zPos_fwd-_halfLength_fwd
-    double tmpMinZ = _RadiatZpos_fwd[il]-0.5*_RadiatersThickness_fwd[il];
-    if (tmpMinZ<_halfLength_fwd) { _halfLength_fwd=tmpMinZ; }
-
-    double tmpMaxZ = _RadiatZpos_fwd[il]+0.5*_RadiatersThickness_fwd[il];
-    if (tmpMaxZ>_zPos_fwd) { _zPos_fwd=tmpMaxZ; }
-
-  }
-
-}
-
-void PSHWMaker::BuildRadiator(){
-
-  _lpsrad = unique_ptr<PSHWRadiator>(new PSHWRadiator());
-
-  if (_nRadiatLayers<1) {
-    exc::exceptionG4 e("GEOM","Warning in Argument",4);
-    e<<"PSHW: Number of Radiator Shell is 0\n";
-    e.error();
-  }
-  if (_nRadiatLayers_fwd<0) {
-    exc::exceptionG4 e("GEOM","Warning in Argument",4);
-    e<<"PSHW: Number of Forwad Radiator Shell is negative\n";
-    e.error();
-  }
-
-  if (_isExternal) {
-    //                throw cet::exception("GEOM") <<"Using GDML file option is temporarily disabled\n";
-    exc::exceptionG4 e("GEOM","Fatal Error in Argument",1);
-    e<<"PSHW: Using GDML file option is temporarily disabled\n";
-    e.error();
-
-  } else {
-    _lpsrad->_nRadiatLayers = _nRadiatLayers+_nRadiatLayers_fwd;
-    _lpsrad->_RadiatInRasius = _RadiatInRasius;
-    _lpsrad->_RadiatHalfLengths = _RadiatHalfLengths;
-    _lpsrad->_RadiatNmShells = _RadiatNmShells;
-    _lpsrad->_RadiatShellsMaterial = _RadiatShellsMaterial;
-    _lpsrad->_RadiatShellsThick = _RadiatShellsThick;
-    _lpsrad->_RadiatorsThickness = _RadiatersThickness;
-    for (int ily=0; ily<_nRadiatLayers; ++ily) {
-      _lpsrad->_RadiatOutRasius.push_back(0.0);
-      _lpsrad->_RadiatorType.push_back(0);
-    }
-    for (int ily=0; ily<_nRadiatLayers_fwd; ++ily) {
-      _lpsrad->_RadiatorType.push_back(1);
-      _lpsrad->_RadiatInRasius.push_back(_RadiatInRasius_fwd[ily]);
-      _lpsrad->_RadiatOutRasius.push_back(_RadiatOutRasius_fwd[ily]);
-      _lpsrad->_RadiatHalfLengths.push_back(_RadiatZpos_fwd[ily]);
-      _lpsrad->_RadiatNmShells.push_back(_RadiatNmShells_fwd[ily]);
-      _lpsrad->_RadiatShellsMaterial.push_back(_RadiatShellsMaterial_fwd[ily]);
-      _lpsrad->_RadiatShellsThick.push_back(_RadiatShellsThick_fwd[ily]);
-      _lpsrad->_RadiatorsThickness.push_back(_RadiatersThickness_fwd[ily]);
-    }
-
-  }
 }
 
 } // namespace pshw

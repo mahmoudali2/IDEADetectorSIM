@@ -24,8 +24,8 @@ ifdef GENFIT2SYS
 endif
 #
 ifdef G4WORKDIR
-      Includes   += -I${G4INCLUDE} -I${G4WORKDIR}/include/EXCEP -I${G4WORKDIR}/include/DRFPIC -I${G4WORKDIR}/include/GEOMSRVC -I${G4WORKDIR}/include/CDCH -I${G4WORKDIR}/include/SVX -I${G4WORKDIR}/include/PSHW -I${G4WORKDIR}/include/PHCV -I${G4WORKDIR}/include/ConfigReader -I${GMCDIR}/include
-      GMCLDFLAGS += -L${G4WORKDIR}/lib -lGMCG4ClassesDict -lSCrd -lEXCEP -lDRFPIC -lGEOMSRVC -lSVX -lPSHW -lCDCH -lPHCV	
+      Includes   += -I${G4INCLUDE} -I${G4WORKDIR}/include/EXCEP -I${G4WORKDIR}/include/DRFPIC -I${G4WORKDIR}/include/GEOMSRVC -I${G4WORKDIR}/include/CDCH -I${G4WORKDIR}/include/SVX -I${G4WORKDIR}/include/SIWRP -I${G4WORKDIR}/include/PSHW -I${G4WORKDIR}/include/PHCV -I${G4WORKDIR}/include/ConfigReader -I${GMCDIR}/include
+      GMCLDFLAGS += -L${G4WORKDIR}/lib -lGMCG4ClassesDict -lSCrd -lEXCEP -lDRFPIC -lGEOMSRVC -lSVX -lSIWRP -lPSHW -lCDCH -lPHCV	
       GMCLDFLAGS += -L${G4LIB} -lG4global 
       GMCLDFLAGS += -lG4Tree -lG4FR -lG4GMocren -lG4visHepRep -lG4RayTracer -lG4VRML -lG4vis_management -lG4modeling -lG4interfaces
       GMCLDFLAGS += -lG4persistency -lG4analysis -lG4error_propagation -lG4readout -lG4physicslists -lG4run -lG4event -lG4tracking -lG4parmodels

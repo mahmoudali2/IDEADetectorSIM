@@ -2,7 +2,7 @@
 // SIWRPtrackerBuilder builder class for the SIWRP in geant4
 //
 // Original author G. Tassielli
-// Modified by Mahmoud Ali
+// 
 
 #ifndef SIWRPrackerBuilder_hh
 #define SIWRPrackerBuilder_hh

@@ -1,7 +1,6 @@
 // SIWRP tracker manager class
 //
-// Original author G. Tassielli
-// Modified by Mahmoud Ali
+
 
 #include "SIWRPtracker.hh"
 #include "Layer.hh"

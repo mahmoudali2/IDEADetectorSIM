@@ -4,7 +4,7 @@
 // Defines a generic SIWRPtracker sensitive detector
 //
 // Original author G. Tassielli
-// Modified by Mahmoud Ali
+// 
 
 // SIWRP includes
 #include <SensitiveDetector.hh>

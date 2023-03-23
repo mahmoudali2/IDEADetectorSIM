@@ -93,6 +93,7 @@ class GMCG4DetectorConstruction : public G4VUserDetectorConstruction
     void ConstructTDCHTracker();
     void ConstructVertexTracker();
     void ConstructSiWrapper();
+    void ConstructMagnet();
     void ConstructPreShower();
     void ConstructMuonSpectrometer();
     void ConstructPhotnConveters();

@@ -46,20 +46,6 @@ int    pshw.Brl.l1.ro.nShells =      1;
 vector<int> pshw.Brl.l1.ro.ShellIds = { 0 };  //id of the ladder shells
 
 
-
-
-// Barrel PSHW Magnet (Radiator)
-int    pshw.Brl.nRadLayers                 = 1;
-// First Barrel Radiator shell description
-double pshw.Brl.rad.l1.InRad   = 2140.0;
-double pshw.Brl.rad.l1.halfLength = 2400.0;
-int    pshw.Brl.rad.l1.nShells =      1;
-vector<string> pshw.Brl.rad.l1.ShellsMaterial = { "G4_Pb" };
-vector<double> pshw.Brl.rad.l1.ShellsThickness = { 300 };
-
-
-
-
 //
 // This tells emacs to view this file in c++ mode.
 // Local Variables:

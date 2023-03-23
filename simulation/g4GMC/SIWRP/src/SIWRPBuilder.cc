@@ -1,14 +1,13 @@
 //
 // SIWRPtrackerBuilder builder class for the SIWRP in geant4
 //
-// Original author G. Tassielli
-// Modified by Mahmoud Ali
+// 
+// 
 
 #include <SIWRPBuilder.hh>
 #include "SIWRPtracker.hh"
 #include "Layer.hh"
 #include "SIWRPLadderSD.hh"
-//#include "SIWRPRadiator.hh"
 
 //#include "G4Hype.hh"
 #include "G4PVPlacement.hh"

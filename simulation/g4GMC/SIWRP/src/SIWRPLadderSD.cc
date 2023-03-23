@@ -1,6 +1,5 @@
 //
-// Original author G. Tassielli
-// Modified by Mahmoud Ali
+
 
 // GMCG4 includes
 #include "GeomService.hh"

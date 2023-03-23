@@ -67,11 +67,13 @@
 #include "SIWRPtracker.hh"
 #include <SIWRPBuilder.hh>
 
+// Magnet
+#include "GMCG4MagnetBuilder.hh"
+
 // PSHW includes
 #include "PSHWMaker.hh"
 #include "PSHWtracker.hh"
 #include <PSHWBuilder.hh>
-#include "PSHWRadiator.hh"
 
 // MUSPC includes
 #include "MUSPCMaker.hh"
@@ -259,6 +261,8 @@ void GMCG4DetectorConstruction::DefineVolumes() {
 
   ConstructSiWrapper();
 
+  ConstructMagnet();
+
   ConstructPreShower();
 
   ConstructPhotnConveters();
@@ -390,6 +394,13 @@ void GMCG4DetectorConstruction::ConstructSiWrapper() {
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void GMCG4DetectorConstruction::ConstructMagnet() {
+
+  if (cRd->getBool("hasMagnet",false)) GMCG4MagnetBuilder::constructMagnet(fTheWorld->GetLogicalVolume());
+
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void GMCG4DetectorConstruction::ConstructPreShower() {
 
   if (cRd->getBool("hasPSHW",false)) {
@@ -402,8 +413,8 @@ void GMCG4DetectorConstruction::ConstructPreShower() {
     pshw::PSHWBuilder::instantiateSensitiveDetectors("PSHWTrackerHitsCollection");
     VolumeInfo pshwvolinf = pshw::PSHWBuilder::constructTracker( fTheWorld->GetLogicalVolume() );
 
-    GeomService::Instance()->addDetector( pshwtm.getPSHWradiatorPtr() );
-    pshw::PSHWBuilder::constructRadiator( pshwvolinf.logical );
+   // GeomService::Instance()->addDetector( pshwtm.getPSHWradiatorPtr() );
+   // pshw::PSHWBuilder::constructRadiator( pshwvolinf.logical );
 
   }
 

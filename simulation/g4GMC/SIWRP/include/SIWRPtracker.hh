@@ -1,7 +1,7 @@
 // SIWRPtracker manager class
 //
 // Original author G. Tassielli
-// Modified by Mahmoud Ali
+// 
 
 #ifndef SIWRPtracker_hh
 #define SIWRPtracker_hh

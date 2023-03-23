@@ -1,7 +1,7 @@
 // SIWRP geometry maker
 //
 // Original author G. Tassielli
-// Modified by Mahmoud Ali
+// 
 
 #ifndef SIWRPMaker_hh
 #define SIWRPMaker_hh

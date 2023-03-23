@@ -3,7 +3,7 @@
  *
  *  Created on: Apr 10, 2017
  *      Author: tassiell
- *  Modified by Mahmoud Ali
+ *  
  */
 
 #include <util/GeometrySrvHndl.h>
@@ -26,7 +26,6 @@
 //PSHW
 #include "PSHWMaker.hh"
 #include "PSHWtracker.hh"
-#include "PSHWRadiator.hh"
 //PHCV
 #include "PHCVMaker.hh"
 #include "PHCVtcounter.hh"

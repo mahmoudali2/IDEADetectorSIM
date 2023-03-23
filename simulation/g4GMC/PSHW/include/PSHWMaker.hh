@@ -24,7 +24,7 @@ class SimpleConfig;
 namespace pshw {
 
 class PSHWtracker;
-class PSHWRadiator;
+//class PSHWRadiator;
 //class Wall;
 
 class PSHWMaker{
@@ -36,16 +36,16 @@ public:
 
   // This is the accessor that will remain.
   std::unique_ptr<PSHWtracker> getPSHWtrackerPtr() { return std::move(_lpst); }
-  std::unique_ptr<PSHWRadiator> getPSHWradiatorPtr() { return std::move(_lpsrad); }
+ // std::unique_ptr<PSHWRadiator> getPSHWradiatorPtr() { return std::move(_lpsrad); }
 
 private:
 
   void loadBarrelTracker( crd::SimpleConfig const& config );
   void loadForwardTracker( crd::SimpleConfig const& config );
   void Build();
-  void loadBarrelRadiator( crd::SimpleConfig const& config );
-  void loadForwardRadiator( crd::SimpleConfig const& config );
-  void BuildRadiator();
+  //void loadBarrelRadiator( crd::SimpleConfig const& config );
+  //void loadForwardRadiator( crd::SimpleConfig const& config );
+  //void BuildRadiator();
 
   // Name of external gdml geometry file description.
   std::string _extFile;
@@ -129,7 +129,7 @@ private:
   std::vector< std::vector<unsigned long> > _nROsPerLadder_fwd;
   std::vector< std::vector<int> > _LaddersNRwDltRO_fwd;
   std::vector< std::vector<int> > _LaddersNRwAddDltRO_fwd;
-
+/*
   //Absorber material description
   //Barrel region
   int _nRadiatLayers;
@@ -149,12 +149,12 @@ private:
   std::vector< std::vector<std::string> > _RadiatShellsMaterial_fwd;
   std::vector< std::vector<double> > _RadiatShellsThick_fwd;
   std::vector< double > _RadiatersThickness_fwd;
-
+*/
   // Center of the tracker.
   CLHEP::Hep3Vector _center;
 
   std::unique_ptr<PSHWtracker> _lpst;
-  std::unique_ptr<PSHWRadiator> _lpsrad;
+ // std::unique_ptr<PSHWRadiator> _lpsrad;
 
 };
 
