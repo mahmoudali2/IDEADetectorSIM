@@ -1,0 +1,12 @@
+# Initialize kernel
+/run/initialize
+
+
+# Kinematics: 
+/gps/particle geantino
+/gps/number 1
+/gps/ang/type iso
+/gps/energy 1 GeV
+
+
+/run/beamOn 2500

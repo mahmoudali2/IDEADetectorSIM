@@ -24,7 +24,6 @@ namespace pshw {
     static VolumeInfo constructTracker( G4LogicalVolume* mother/*, double zOff*/ );
     static void constructStepLimiters();
     static void instantiateSensitiveDetectors(const std::string hitsCollectionName="PSHWHitsCollection");
-   // static void constructRadiator( G4LogicalVolume* pshwmother/*, double zOff*/ );
   private:
     static VolumeInfo buildLadder(svx::Ladder &tld);
   };

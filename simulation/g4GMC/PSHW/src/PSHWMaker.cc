@@ -1,7 +1,7 @@
 // PSHW geometry maker
 //
 // Original author G. Tassielli
-//
+// 
 
 
 #include "PSHWMaker.hh"
@@ -74,9 +74,6 @@ PSHWMaker::PSHWMaker( crd::SimpleConfig const& config):
 
         loadForwardTracker(config);
 
-       // loadBarrelRadiator(config);
-
-       // loadForwardRadiator(config);
 
         if (_nFwdLayers>0) {
           _halfLength_fwd=(_zPos_fwd-_halfLength_fwd)*0.5;
@@ -105,7 +102,6 @@ PSHWMaker::PSHWMaker( crd::SimpleConfig const& config):
         }
 
         cout<<"Tot Numb of Channels "<<totNumRO<<endl;
-       // cout<<"nRadiator Layers "<<_nRadiatLayers<<endl;
 
 //        _r0-=1*CLHEP::mm;
 //        _rOut+=1*CLHEP::mm;
@@ -114,7 +110,7 @@ PSHWMaker::PSHWMaker( crd::SimpleConfig const& config):
 
         // Do the real work.
         Build( );
-        //BuildRadiator();
+     
 }
 
 PSHWMaker::~PSHWMaker (){}
@@ -180,19 +176,30 @@ void PSHWMaker::loadBarrelTracker( crd::SimpleConfig const& config ){
 //            double FsrSdLadderDim = CLHEP::twopi*(_LayersInnerRad[il]+_LaddersThickness[il])/((double)_nPhiSectors[il]);
       double FsrSdLadderDim = 2.0*_LayersInnerRad[il]*tan( 0.5*_phiAngles[il] );
       _LaddersWidth.push_back(FsrSdLadderDim);
-      unsigned int nROFstSdperLad = ((FsrSdLadderDim-_ROfirstSideInsul[il])/(_ROfirstSideDim[il]+_ROfirstSideInsul[il]));
-      _nROsFstSdPerLadder.push_back( nROFstSdperLad );
-      unsigned int nROSndSdperLad = ((2.0*_LaddersHalfLength[il]-_ROSecondSideInsul[il])/(_ROSecondSideDim[il]+_ROSecondSideInsul[il]));
-      _nROsSndSdPerLadder.push_back( nROSndSdperLad );
-      unsigned long nROperLad = nROFstSdperLad;
-      nROperLad *= nROSndSdperLad;
-      _nROsPerLadder.push_back( nROperLad );
-      if (nROFstSdperLad>10000 || nROSndSdperLad>10000) {
+      if(_ROTypes[il]!=0){
+	unsigned int nROFstSdperLad = ((FsrSdLadderDim-_ROfirstSideInsul[il])/(_ROfirstSideDim[il]+_ROfirstSideInsul[il]));
+	_nROsFstSdPerLadder.push_back( nROFstSdperLad );
+	unsigned int nROSndSdperLad = ((2.0*_LaddersHalfLength[il]-_ROSecondSideInsul[il])/(_ROSecondSideDim[il]+_ROSecondSideInsul[il]));
+	_nROsSndSdPerLadder.push_back( nROSndSdperLad );
+	unsigned long nROperLad = nROFstSdperLad;
+	nROperLad *= nROSndSdperLad;
+	_nROsPerLadder.push_back( nROperLad );
+	// if (nROFstSdperLad>10000 || nROSndSdperLad>10000) {
         //                throw cet::exception("GEOM") <<"Using GDML file option is temporarily disabled\n";
-        exc::exceptionG4 e("GEOM","Fatal Error in Argument",1);
-        e<<"PSHW: Maximum number of Channels allowed per X or Y per Ladder is 10000!\n";
-        e.error();
-
+        //exc::exceptionG4 e("GEOM","Fatal Error in Argument",1);
+        //e<<"PSHW: Maximum number of Channels allowed per X or Y per Ladder is 10000!\n";
+        //e.error();
+	
+	//}
+      } 
+      else{
+        unsigned int nROFstSdperLad = 0.;
+        _nROsFstSdPerLadder.push_back( nROFstSdperLad );
+        unsigned int nROSndSdperLad = 0.;
+	_nROsSndSdPerLadder.push_back( nROSndSdperLad );
+        unsigned long nROperLad = nROFstSdperLad;
+        nROperLad *= nROSndSdperLad;
+	_nROsPerLadder.push_back( nROperLad );
       }
     }
   }
@@ -342,13 +349,13 @@ void PSHWMaker::loadForwardTracker( crd::SimpleConfig const& config ){
         }
         nROsPerLd.push_back( nROperLad );
 
-        if (nROFstSdLngperLad>10000 || nROSndSdperLad>10000) {
+       /* if (nROFstSdLngperLad>10000 || nROSndSdperLad>10000) {
           //                throw cet::exception("GEOM") <<"Using GDML file option is temporarily disabled\n";
           exc::exceptionG4 e("GEOM","Fatal Error in Argument",1);
           e<<"PSHW: Maximum number of Channels allowed per X or Y per Fwd Ladder is 10000!\n";
           e.error();
 
-        }
+        }*/
       }
       _LaddersShrtSdDim_fwd.push_back( LdsShrtSdDim );
       _LaddersLngSdDim_fwd.push_back( LdsLngSdDim );

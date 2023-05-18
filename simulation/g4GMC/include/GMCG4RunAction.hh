@@ -33,6 +33,10 @@
 
 #include "G4UserRunAction.hh"
 #include "globals.hh"
+#include "G4Run.hh"
+
+#include "g4root.hh"
+//#include "G4AnalysisManager.hh" // not supported by geant4 version before 11, any version before 11 should include "g4root.hh" instead.
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

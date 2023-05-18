@@ -1,7 +1,7 @@
 // PSHW geometry maker
 //
 // Original author G. Tassielli
-//
+// 
 
 #ifndef PSHWMaker_hh
 #define PSHWMaker_hh
@@ -24,7 +24,6 @@ class SimpleConfig;
 namespace pshw {
 
 class PSHWtracker;
-//class PSHWRadiator;
 //class Wall;
 
 class PSHWMaker{
@@ -43,9 +42,6 @@ private:
   void loadBarrelTracker( crd::SimpleConfig const& config );
   void loadForwardTracker( crd::SimpleConfig const& config );
   void Build();
-  //void loadBarrelRadiator( crd::SimpleConfig const& config );
-  //void loadForwardRadiator( crd::SimpleConfig const& config );
-  //void BuildRadiator();
 
   // Name of external gdml geometry file description.
   std::string _extFile;
@@ -129,32 +125,12 @@ private:
   std::vector< std::vector<unsigned long> > _nROsPerLadder_fwd;
   std::vector< std::vector<int> > _LaddersNRwDltRO_fwd;
   std::vector< std::vector<int> > _LaddersNRwAddDltRO_fwd;
-/*
-  //Absorber material description
-  //Barrel region
-  int _nRadiatLayers;
-  std::vector<double> _RadiatInRasius;
-  std::vector<double> _RadiatHalfLengths;
-  std::vector<int>    _RadiatNmShells;
-  std::vector< std::vector<std::string> > _RadiatShellsMaterial;
-  std::vector< std::vector<double> > _RadiatShellsThick;
-  std::vector< double > _RadiatersThickness;
 
-  //Forward region
-  int _nRadiatLayers_fwd;
-  std::vector<double> _RadiatInRasius_fwd;
-  std::vector<double> _RadiatOutRasius_fwd;
-  std::vector<double> _RadiatZpos_fwd;
-  std::vector<int>    _RadiatNmShells_fwd;
-  std::vector< std::vector<std::string> > _RadiatShellsMaterial_fwd;
-  std::vector< std::vector<double> > _RadiatShellsThick_fwd;
-  std::vector< double > _RadiatersThickness_fwd;
-*/
   // Center of the tracker.
   CLHEP::Hep3Vector _center;
 
   std::unique_ptr<PSHWtracker> _lpst;
- // std::unique_ptr<PSHWRadiator> _lpsrad;
+
 
 };
 

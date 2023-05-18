@@ -1,4 +1,4 @@
-//
+// Added by Mahmoud Ali
 // Warning:  do not write 10000. as 10,000.; it will be read as two numbers (10., 0.).
 
 bool hasMagnet      = true;
@@ -19,14 +19,14 @@ double mgnt.halfLength       =  2400.0;
 
 //double mgnt.voxelization     =     0;   //Choose voxelization method for the gas volumes that contain wires, negative: default computation, 0: voxelization off, positive: smartless value
 
-//bool   mgnt.doDetailedSurfCheck = false;
+bool   mgnt.doDetailedSurfCheck = false;
 
 // Cell parameter needed only for the square cell case
 
 // Magnet Layer Ladder description
 int    mgnt.nShells =      1;
 vector<string> mgnt.ShellsMaterial = { "G4_Fe" };
-vector<double> mgnt.ShellsThickness = { 299 };
+vector<double> mgnt.ShellsThickness = { 300,0 };
 
 
 

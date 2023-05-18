@@ -37,6 +37,8 @@
 
 #include "GMCG4PodioManager.hh"
 
+#include "g4root.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 GMCG4RunAction::GMCG4RunAction()
@@ -53,10 +55,36 @@ GMCG4RunAction::~GMCG4RunAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void GMCG4RunAction::BeginOfRunAction(const G4Run*)
+void GMCG4RunAction::BeginOfRunAction(const G4Run* run)
 { 
   //inform the runManager to save random number seed
   G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+
+// starting the analysis by intiating G4AnalysisManager class
+  G4AnalysisManager *man = G4AnalysisManager::Instance();
+// Generating root file
+
+  G4int runID = run->GetRunID();
+  std::stringstream strRunID;
+  strRunID << runID;
+
+  man->OpenFile("output"+strRunID.str()+".root");
+
+
+// Create ntuples.
+// Ntuples ids are generated automatically starting from 0.    
+// Create 1st ntuple (id = 0) 
+  man->CreateNtuple("Scoring", "Scoring");
+  man->CreateNtupleDColumn("fEndep"); //column id = 0
+  man->FinishNtuple(0);
+
+// Create 2nd ntuple (id = 1) 
+  man->CreateNtuple("rad", "Radiation length");
+  man->CreateNtupleDColumn("frad"); //column id = 0
+  man->CreateNtupleDColumn("cos"); //column id = 1
+  man->CreateNtupleDColumn("phi"); //column id = 2
+  man->FinishNtuple(1);
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -64,11 +92,15 @@ void GMCG4RunAction::BeginOfRunAction(const G4Run*)
 void GMCG4RunAction::EndOfRunAction(const G4Run* )
 {
 
+  G4AnalysisManager *man = G4AnalysisManager::Instance();
 
-RootIO::GetInstance()->Close();
+  man->Write();
+  man->CloseFile();
 
-GMCG4PodioManager * podioManager = GMCG4PodioManager::Instance();
-podioManager->Finish();
+  RootIO::GetInstance()->Close();
+
+  GMCG4PodioManager * podioManager = GMCG4PodioManager::Instance();
+  podioManager->Finish();
 
 }
 

@@ -11,9 +11,9 @@
 //bool hasTarget          = true;
 
 // Write geometry into a GDML file
-bool   writeGDML        = true;
+//bool   writeGDML        = true;
 //string GDMLFileName     = "g4test-mu2e.gdml";
-string GDMLFileName     = "g4-IDEA.gdml";
+//string GDMLFileName     = "g4-IDEA.gdml";
 
 // Uncomment exactly one central tracker.
 //#include "LEproto.txt"
@@ -22,11 +22,11 @@ string GDMLFileName     = "g4-IDEA.gdml";
 //#include "cdch_v50-IDEA_CEPC.txt"
 //#include "svx_v00-IDEA_CEPC.txt"
 //#include "pshw_v00-IDEA_CEPC.txt"
-#include "mgnt_v00-IDEA_CEPC.txt"
-#include "siwrp_v00-IDEA_CEPC.txt"
+//#include "mgnt_v00-IDEA_CEPC.txt"
+//#include "siwrp_v00-IDEA_CEPC.txt"
 //#include "bmpipe_v00-IDEA_CEPC.txt"
 //#include "drfpic_v00-IDEA_CEPC.txt"
-//#include "muspc_v00-IDEA_CEPC.txt"
+#include "muspc_v00-IDEA_CEPC.txt"
 
 // Uncomment max one vertex tracker.
 //#include "config/ModPxVertex.txt"
@@ -106,7 +106,7 @@ vector<string> gmc.materials =
 bool g4.doSurfaceCheck = false;
 
 //double world.Length            = 2000.;  //unit mm
-vector<double> world.dims = { 5000, 5000, 6000}; //unit mm
+vector<double> world.dims = { 15000, 15000, 16000}; //unit mm
 //double world.minimalMargin.top = 3000;
 //double world.minimalMargin.bottom = 3000;
 //double world.minimalMargin.xmin = 3000;

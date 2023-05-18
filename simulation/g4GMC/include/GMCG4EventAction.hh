@@ -32,21 +32,34 @@
 #define GMCG4EventAction_h 1
 
 #include "G4UserEventAction.hh"
+#include "G4Event.hh"
 
+#include "g4root.hh"
 #include "globals.hh"
+
+#include "GMCG4RunAction.hh"
 
 /// Event action class
 
 class GMCG4EventAction : public G4UserEventAction
 {
   public:
-    GMCG4EventAction();
+    GMCG4EventAction(GMCG4RunAction*);
     virtual ~GMCG4EventAction();
 
     virtual void  BeginOfEventAction(const G4Event* );
     virtual void    EndOfEventAction(const G4Event* );
 
+    void AddEndep(G4double endep) { fEndep += endep; }
+    void AddRad(G4double rad) { frad += rad; }
+    void AddCos(G4double cosTh) { cos = cosTh; }
+    void AddPhi(G4double phiAz) { phi = phiAz; }
+
   private:
+    G4double fEndep;
+    G4double frad;
+    G4double cos;
+    G4double phi;
     bool _hasDRFPIC;
     bool _wrtASCIIDR;
 };

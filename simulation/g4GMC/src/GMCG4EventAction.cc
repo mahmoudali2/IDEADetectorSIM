@@ -50,8 +50,13 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-GMCG4EventAction::GMCG4EventAction()
+GMCG4EventAction::GMCG4EventAction(GMCG4RunAction*)
 : G4UserEventAction() {
+  fEndep = 0.;
+  frad = 0.;
+  cos = 0.;
+  phi = 0.;
+
 	GeomService *geoms = GeomService::Instance();
 	_hasDRFPIC = geoms->getConfig().getBool("hasDRFPIC",false);
 	_wrtASCIIDR = geoms->getConfig().getBool("drc.writeASCII",false);
@@ -64,6 +69,11 @@ GMCG4EventAction::~GMCG4EventAction() {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void GMCG4EventAction::BeginOfEventAction(const G4Event*) {
+    fEndep = 0.;
+    frad = 0.;
+    cos = 0.;
+    phi = 0.;
+
 	  if (_hasDRFPIC){
 		  drc::DRCaloIO::GetInstance()->newEvent( G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID(), _wrtASCIIDR );
 	  }
@@ -72,6 +82,20 @@ void GMCG4EventAction::BeginOfEventAction(const G4Event*) {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void GMCG4EventAction::EndOfEventAction(const G4Event* event) {
+  
+  //  filling the ntuple columns
+  G4cout << "Energy deposition: " << fEndep << G4endl;
+  G4cout << "Number of Radiation lengths: " << frad << G4endl;
+  G4AnalysisManager *man = G4AnalysisManager::Instance();
+
+  man->FillNtupleDColumn(0, 0, fEndep);
+  man->AddNtupleRow(0);
+
+  man->FillNtupleDColumn(1, 0, frad);
+  man->FillNtupleDColumn(1, 1, cos);
+  man->FillNtupleDColumn(1, 2, phi);
+  man->AddNtupleRow(1);
+
 
   // get number of stored trajectories
 

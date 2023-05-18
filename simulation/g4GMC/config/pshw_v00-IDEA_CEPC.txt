@@ -5,7 +5,9 @@ bool hasPSHW      = true;
 
 string pshw.motherVolMat = "G4_AIR";
 //vector<double> g4.detSysCenter = { 0.0, 0.0, 0.0 };
-
+vector<string> cdch.materials =
+  { "G10_FR4","EGlass","Epotek301","C_19_H_20_O_4","C_10_H_18_O_4","C_9_H_22_N_2","CarbonFiber","CarbonFiber_resin"
+  };
 //vector<string> pshw.materials =
 //  {  };
 
@@ -21,29 +23,27 @@ bool   pshw.doDetailedSurfCheck = false;
 bool   pshw.debugLayer       = false;
 
 // Barrel PSHW parameters
-
 int    pshw.Brl.nLayers                    = 1;
-vector<double> pshw.Brl.LayersInRad        = { 2445.0 };
-vector<int> pshw.Brl.nPhiSectors           = { 80 };
-vector<int> pshw.Brl.nLaddersPerSector     = { 48 };
-vector<double> pshw.Brl.LaddersHalfLength  = { 50 };  // Per Layer (The ladder are supposed to be equal for one layer)
-vector<double> pshw.Brl.LaddersThickness   = { 50 }; // Per Layer
-vector<int> pshw.Brl.ROTypes               = { 1 }; //1: Pixel; 2: Strip // Per Layer
-vector<double> pshw.Brl.ROfirstSideDim     = { 0.07 }; // Per Layer
-vector<double> pshw.Brl.ROfirstSideInsul   = { 0.0005 }; // Per Layer
-vector<double> pshw.Brl.ROSecondSideDim    = { 0.07 }; // Per Layer
-vector<double> pshw.Brl.ROSecondSideInsul  = { 0.0005 }; // Per Layer
-vector<double> pshw.Brl.ROangle            = { 0.0 }; // Per Layer
-
-
+vector<double> pshw.Brl.LayersInRad        = {2440};  //
+vector<int> pshw.Brl.nPhiSectors           = {30};  // it is the best fit for 50 cm length of the microRWELL mosaic
+vector<int> pshw.Brl.nLaddersPerSector     = {9};  // last one was 50 
+vector<double> pshw.Brl.LaddersHalfLength  = {250};  // Per Layer (The ladder are supposed to be equal for one layer)
+vector<double> pshw.Brl.LaddersThickness   = {20}; // the previous one was 50," Per Layer  0.95 "
+vector<int> pshw.Brl.ROTypes               = {1}; //1: Pixel; 2: Strip // Per Layer
+vector<double> pshw.Brl.ROfirstSideDim     = {0.7}; // Per Layer
+vector<double> pshw.Brl.ROfirstSideInsul   = {1.5}; // Per Layer
+vector<double> pshw.Brl.ROSecondSideDim    = {0.7}; // Per Layer
+vector<double> pshw.Brl.ROSecondSideInsul  = {1.5}; // Per Layer
+vector<double> pshw.Brl.ROangle            = {0.0}; // Per Layer
 
 
 // First Barrel Layer Ladder description
-int    pshw.Brl.l1.ld.nShells =      1;
-vector<string> pshw.Brl.l1.ld.ShellsMaterial = { "G4_Si" };
-vector<double> pshw.Brl.l1.ld.ShellsThickness = { 50 };
+int    pshw.Brl.l1.ld.nShells =      10;
+vector<string> pshw.Brl.l1.ld.ShellsMaterial = { "G10_FR4", "G4_Cu","C_19_H_20_O_4","G4_Cu","Kapton","CarbonFiber","G4_Cu","CarbonFiber", "G4_Cu","G4_Si"};
+vector<double> pshw.Brl.l1.ld.ShellsThickness = { 1.60, 0.035, 6.0, 0.005, 0.05, 0.0001, 0.035, 0.1, 0.035, 1.60};
 int    pshw.Brl.l1.ro.nShells =      1;
 vector<int> pshw.Brl.l1.ro.ShellIds = { 0 };  //id of the ladder shells
+
 
 
 //

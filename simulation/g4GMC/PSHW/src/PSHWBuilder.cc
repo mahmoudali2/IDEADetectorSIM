@@ -2,7 +2,7 @@
 // PSHWtrackerBuilder builder class for the PSHW in geant4
 //
 // Original author G. Tassielli
-//
+// 
 
 #include <PSHWBuilder.hh>
 #include "PSHWtracker.hh"
@@ -260,6 +260,10 @@ VolumeInfo PSHWBuilder::buildLadder(Ladder &tld){
       LadderInfo.logical = new G4LogicalVolume(LadderInfo.solid,gmc::findMaterialOrThrow( tld.getDetail()->materialName(0).c_str() ),volName,0,0,0);
     }
     else {
+      std::cout<<"******************"<<std::endl;
+      std::cout<<"************** tld.getDetail()->materialName(0).c_str() = "<<tld.getDetail()->materialName(0).c_str()<<std::endl;
+      //std::cout<<"****************"<<std::endl;
+      //
       G4Material* matMother = gmc::findMaterialOrThrow( config.getString("pshw.motherVolMat","G4_AIR") );
       LadderInfo.logical = new G4LogicalVolume(LadderInfo.solid,matMother/*gmc::findMaterialOrThrow( "G4_Galactic" )*/,volName,0,0,0);
       char tShapeName[100], tVolName[100];

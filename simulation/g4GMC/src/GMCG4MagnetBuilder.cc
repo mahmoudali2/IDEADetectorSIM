@@ -1,4 +1,5 @@
- // GMCG4MagnetBuilder.cc
+// GMCG4MagnetBuilder.cc
+// Added by Mahmoud Ali
 
 #include <GMCG4MagnetBuilder.hh>
 
@@ -24,16 +25,17 @@ void GMCG4MagnetBuilder::constructMagnet(G4LogicalVolume* motherLogV) {
 
  // if (motherLogV==NULL) G4cerr<<"GMCG4MagnetBuilder mother volume not defined!"<<G4endl;
 
-  G4bool  checkOverlap=true;
+  G4bool  checkOverlap, detailedCheck;
 
   GeomService *geoms = GeomService::Instance();
-  const crd::SimpleConfig &cRd = geoms->getConfig();
+  const crd::SimpleConfig &config = geoms->getConfig();
 
 
-  checkOverlap = cRd.getBool("g4.doSurfaceCheck",false);
+  checkOverlap = config.getBool("g4.doSurfaceCheck",false);
+  detailedCheck = checkOverlap&&config.getBool("mgnt.doDetailedSurfCheck",false);
 
   bool isExternal     = false;
-  std::string extFile        = cRd.getString("mgnt.extFile");
+  std::string extFile        = config.getString("mgnt.extFile");
   if ( extFile.size()>1 && ( extFile.find_last_of(".gdml") || extFile.find_last_of(".GDML") )!=0 ) isExternal = true;
 
   if (isExternal) {
@@ -41,19 +43,19 @@ void GMCG4MagnetBuilder::constructMagnet(G4LogicalVolume* motherLogV) {
     e<<"This GDML file option is temporarily disabled\n";
     e.error();
   } else {
-    int geomType       = cRd.getInt("mgnt.geomType");
-    double r_in        = cRd.getDouble("mgnt.r_in");
-    double r_out       = cRd.getDouble("mgnt.r_out");
-    double halfLength  = cRd.getDouble("mgnt.halfLength");
+    int geomType       = config.getInt("mgnt.geomType");
+    double r_in        = config.getDouble("mgnt.r_in");
+    double r_out       = config.getDouble("mgnt.r_out");
+    double halfLength  = config.getDouble("mgnt.halfLength");
 
 
-    int nShells        = cRd.getInt("mgnt.nShells");
+    int nShells        = config.getInt("mgnt.nShells");
 
     std::vector<double> shellsThickness;
     std::vector< std::string > shellsMaterial;
 
-    cRd.getVectorDouble("mgnt.ShellsThickness", shellsThickness, nShells );
-    cRd.getVectorString("mgnt.ShellsMaterial", shellsMaterial, nShells);
+    config.getVectorDouble("mgnt.ShellsThickness", shellsThickness, nShells );
+    config.getVectorString("mgnt.ShellsMaterial", shellsMaterial, nShells);
 
 
     G4VisAttributes* visAtt = new G4VisAttributes(true, G4Colour::Yellow() );
@@ -62,7 +64,7 @@ void GMCG4MagnetBuilder::constructMagnet(G4LogicalVolume* motherLogV) {
     visAtt->SetVisibility(true);
     visAtt->SetDaughtersInvisible(false);
 
-    G4Material* matMother = gmc::findMaterialOrThrow( cRd.getString("mgnt.motherVolMat","G4_AIR") );
+    G4Material* matMother = gmc::findMaterialOrThrow( config.getString("mgnt.motherVolMat","G4_AIR") );
     G4Tubs *mgntShp       = new G4Tubs("Magnet", r_in, r_out,halfLength+0.001,0.0,360.0*CLHEP::degree);
     G4LogicalVolume *mgntLog = new G4LogicalVolume(mgntShp , matMother, "MagnetMother",0,0,0);
      // mgntLog->SetVisAttributes(visAtt);

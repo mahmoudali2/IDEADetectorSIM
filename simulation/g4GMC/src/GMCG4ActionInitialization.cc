@@ -32,6 +32,7 @@
 #include "GMCG4PrimaryGeneratorAction.hh"
 #include "GMCG4RunAction.hh"
 #include "GMCG4EventAction.hh"
+#include "GMCG4SteppingAction.hh"
 #include "GMCG4TrackingAction.hh"
 
 #include "G4GeneralParticleSource.hh"
@@ -52,7 +53,8 @@ GMCG4ActionInitialization::~GMCG4ActionInitialization()
 
 void GMCG4ActionInitialization::BuildForMaster() const
 {
-  SetUserAction(new GMCG4RunAction);
+  GMCG4RunAction *runAction = new GMCG4RunAction();
+  SetUserAction(runAction);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -61,9 +63,16 @@ void GMCG4ActionInitialization::Build() const
 {
   SetUserAction(new GMCG4PrimaryGeneratorAction);
 //  SetUserAction(new GMCG4GPSPrimaryGeneratorAction);
-  SetUserAction(new GMCG4RunAction);
   SetUserAction(new GMCG4TrackingAction);
-  SetUserAction(new GMCG4EventAction);
+
+  GMCG4RunAction *runAction = new GMCG4RunAction();
+  SetUserAction(runAction);
+    
+  GMCG4EventAction *eventAction = new GMCG4EventAction(runAction);
+  SetUserAction(eventAction);
+    
+  GMCG4SteppingAction *steppingAction = new GMCG4SteppingAction(eventAction);
+  SetUserAction(steppingAction);
 }  
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -33,6 +33,11 @@
 
 #include "G4VUserActionInitialization.hh"
 
+#include "GMCG4RunAction.hh"
+#include "GMCG4EventAction.hh"
+#include "GMCG4SteppingAction.hh"
+#include "GMCG4DetectorConstruction.hh"
+
 //class B4DetectorConstruction;
 
 /// Action initialization class.
